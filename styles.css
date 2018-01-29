@@ -1,0 +1,45 @@
+
+body {
+	background-image: url(https://images.unsplash.com/photo-1506880135364-e28660dc35fa?auto=format&fit=crop&w=1875&q=80);
+	background-size: cover;
+	background-size: 120%;
+}
+
+input[type="text"], input[type="email"] {
+	font-size: 25px;
+	margin-left: 60px;
+}
+
+input[type="placeholder"] {
+	font-size: 40px;
+}
+
+
+button {
+	font-size: 30px;
+	margin-left: 60px;
+	color: green;
+	border-color: blue;
+}
+
+img {
+	display: block;
+	width: 80px;
+	margin: 50px 70px;
+	padding-top: 80px;
+}
+
+
+p, a {
+	font-size: 20px;
+	color: #FFF;
+	margin-left: 50px;
+	font-weight: bold;
+}
+
+
+
+.contactForm {
+	padding: 40px;
+	background-color: rgb(37, 58, 4);
+}
