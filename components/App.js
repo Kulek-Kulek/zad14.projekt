@@ -53,8 +53,8 @@ App = React.createClass({
   },
 
   getGif: function(searchingText) {  
-    var GIPHY_PUB_KEY = 'kjBxLdT8QQP2NDurPbw8C9aGv1WWptMT';
-    var GIPHY_API_URL = 'https://api.giphy.com';
+    var GIPHY_PUB_KEY = '';
+    var GIPHY_API_URL = '';
     var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
     return new Promise(function(resolve, reject){
         var xhr = new XMLHttpRequest();
