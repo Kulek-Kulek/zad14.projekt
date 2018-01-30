@@ -21,12 +21,36 @@ App = React.createClass({
     }.bind(this));
   },
 
+  componentWillMount(){
+    var promise = new Promise(function(resolve, reject){
+
+        console.log('1. start setTimeout');
+
+        setTimeout(function(){
+            console.log('3. end set timeout');
+            // resolve(1);
+            resolve(1);
+        }, 4000)
+    });
+
+    promise.then(
+        function(data){
+            console.log('4. data', data);
+        }, 
+        function(err){
+            console.log('4. error data', err);
+        }
+    )
+    console.log('2. to sie dzieje po obietnicy');
+
+  },
 
   getGif: function(searchingText, callback) {  
-    // var GIPHY_API_URL;
-    // var GIPHY_PUB_KEY;
-    var GIPHY_PUB_KEY = '';
-    var GIPHY_API_URL = '';
+
+    // var GIPHY_PUB_KEY = '';
+    // var GIPHY_API_URL = '';
+    var GIPHY_PUB_KEY = 'kjBxLdT8QQP2NDurPbw8C9aGv1WWptMT';
+    var GIPHY_API_URL = 'https://api.giphy.com';
     var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;  // 2.
     var xhr = new XMLHttpRequest();  
     xhr.open('GET', url);
