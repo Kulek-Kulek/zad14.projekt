@@ -12,13 +12,20 @@ App = React.createClass({
     this.setState({
       loading: true  // 2.
     });
-    this.getGif(searchingText, function(gif) {  
-      this.setState({  
-        loading: false,
-        gif: gif,  
-        searchingText: searchingText  
-      });
-    }.bind(this));
+    var self = this;
+    this.getGif(searchingText)
+        .then(
+            function(gif){
+              self.setState({  
+                loading: false,
+                gif: gif,  
+                searchingText: searchingText  
+              });
+            }, 
+            function(err){
+                console.log('ERROR: ', err);
+            }
+        )
   },
 
   componentWillMount(){
@@ -45,26 +52,28 @@ App = React.createClass({
 
   },
 
-  getGif: function(searchingText, callback) {  
-
-    // var GIPHY_PUB_KEY = '';
-    // var GIPHY_API_URL = '';
+  getGif: function(searchingText) {  
     var GIPHY_PUB_KEY = 'kjBxLdT8QQP2NDurPbw8C9aGv1WWptMT';
     var GIPHY_API_URL = 'https://api.giphy.com';
-    var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;  // 2.
-    var xhr = new XMLHttpRequest();  
-    xhr.open('GET', url);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-           var data = JSON.parse(xhr.responseText).data; 
-            var gif = {  
-                url: data.fixed_width_downsampled_url,
-                sourceUrl: data.url
-            };
-            callback(gif);  
-        }
-    };
-    xhr.send();
+    var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
+    return new Promise(function(resolve, reject){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText).data; 
+                var gif = {  
+                    url: data.fixed_width_downsampled_url,
+                    sourceUrl: data.url
+                };
+                resolve(gif); 
+            } else {
+                reject('Nie poprawny status odpowiedzi');
+            } 
+        };
+        xhr.send();
+    })
+
 },
 
     render: function() {
